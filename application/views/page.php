@@ -10,7 +10,11 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin - Dashboard</title>
+        <title>Task Manager - <?php echo $title; ?></title>
+
+        <script>
+            window.menu = '<?php echo $title; ?>';
+        </script>
 
         <!-- Bootstrap core CSS-->
         <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -29,28 +33,34 @@
     <body id="page-top">
 
         <!-- Header -->
-        <?php include 'shared/header.php'; ?>
-        
+        <?php include_once 'shared/header.php'; ?>
+
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <?php include 'shared/sidebar.php'; ?>
+            <?php include_once 'shared/sidebar.php'; ?>
 
             <div id="content-wrapper">
 
                 <div class="container-fluid">
 
                     <!-- Breadcrumbs-->
-                    <?php include 'shared/breadcrumb.php'; ?>
+                    <?php include_once 'shared/breadcrumb.php'; ?>
 
                     <!-- Content -->
-                    <?php include 'home.php'; ?>
-                    
+                    <?php
+                    if (isset($userClickHome) && $userClickHome == TRUE) {
+                        include_once 'home.php';
+                    } elseif (isset($userClickAdmin) && $userClickAdmin == TRUE) {
+                        include_once 'admin.php';
+                    }
+                    ?>
+
                 </div>
                 <!-- /.container-fluid -->
 
                 <!-- Sticky Footer -->
-                <?php include 'shared/footer.php'; ?>
+                <?php include_once 'shared/footer.php'; ?>
 
             </div>
             <!-- /.content-wrapper -->
@@ -75,8 +85,8 @@
                     </div>
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-undo"></i> Cancel</button>
+                        <a class="btn btn-primary" href="<?php echo base_url(); ?>/Login"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
             </div>
@@ -96,6 +106,9 @@
 
         <!-- Custom scripts for all pages-->
         <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script>
+
+        <!-- Custom scripts for this application-->
+        <script src="<?php echo base_url(); ?>assets/js/task.js"></script>
 
         <!-- Demo scripts for this page-->
         <script src="<?php echo base_url(); ?>assets/js/datatables-demo.js"></script>
