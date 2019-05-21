@@ -14,6 +14,7 @@
 
         <script>
             window.menu = '<?php echo $title; ?>';
+            window.base_url = '<?php echo base_url(); ?>';
         </script>
 
         <!-- Bootstrap core CSS-->
@@ -27,6 +28,9 @@
 
         <!-- Custom styles for this template-->
         <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="<?php echo base_url(); ?>assets/css/task.css" rel="stylesheet">
 
     </head>
 
@@ -53,6 +57,14 @@
                         include_once 'home.php';
                     } elseif (isset($userClickAdmin) && $userClickAdmin == TRUE) {
                         include_once 'admin.php';
+                    } elseif (isset($userClickWeekly) && $userClickWeekly == TRUE) {
+                        include_once 'weekly.php';
+                    } elseif (isset($userClickRole) && $userClickRole == TRUE) {
+                        include_once 'role.php';
+                    } elseif (isset($userClickYear) && $userClickYear == TRUE) {
+                        include_once 'year.php';
+                    }elseif (isset($userClickPeriod) && $userClickPeriod == TRUE) {
+                        include_once 'period.php';
                     }
                     ?>
 
@@ -110,10 +122,10 @@
         <!-- Custom scripts for this application-->
         <script src="<?php echo base_url(); ?>assets/js/task.js"></script>
 
-        <!-- Demo scripts for this page-->
+        <!-- Demo scripts for this page
         <script src="<?php echo base_url(); ?>assets/js/datatables-demo.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/chart-area-demo.js"></script>
-
+        -->
     </body>
 
 </html>

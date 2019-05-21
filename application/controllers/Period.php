@@ -2,29 +2,29 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Weekly extends CI_Controller {
+class Period extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        if ($this->session->userdata('logged_in') == false) {
+        if ($this->session->userdata('logged_in') == false || $this->session->userdata('ad_role') != 1) {
             redirect('Login');
         }
-        $this->load->model('MWeekly');
+        $this->load->model('MPeriod');
     }
 
     public function index() {
         $user_id = $this->session->userdata('user_id');
-        
+
         $data = array(
-            'title' => 'Weekly',
-            'subtitle' => 'Task List',
-            'userClickWeekly' => TRUE,
-            'weeklyList' => $this->MWeekly->get_all($user_id)
+            'title' => 'Period',
+            'subtitle' => 'Period List',
+            'userClickPeriod' => TRUE,
+            'periodList' => $this->MWeekly->get_all($user_id)
         );
         $this->load->view('page', $data);
     }
 
-    public function add_weekly() {
+    public function add_() {
         $date = date('Y/m/d H:i:s');
         $data = array(
             'name' => $this->input->post('name'),

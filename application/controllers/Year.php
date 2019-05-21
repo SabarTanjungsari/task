@@ -2,29 +2,29 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Weekly extends CI_Controller {
+class Year extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        if ($this->session->userdata('logged_in') == false) {
+        if ($this->session->userdata('logged_in') == false || $this->session->userdata('role_id') != 1) {
             redirect('Login');
         }
-        $this->load->model('MWeekly');
+        $this->load->model('MYear');
     }
 
     public function index() {
         $user_id = $this->session->userdata('user_id');
-        
+
         $data = array(
-            'title' => 'Weekly',
-            'subtitle' => 'Task List',
-            'userClickWeekly' => TRUE,
-            'weeklyList' => $this->MWeekly->get_all($user_id)
+            'title' => 'Year',
+            'subtitle' => 'Year List',
+            'userClickYear' => TRUE,
+            'yearList' => $this->MYear->get_all()
         );
         $this->load->view('page', $data);
     }
 
-    public function add_weekly() {
+    public function add_year() {
         $date = date('Y/m/d H:i:s');
         $data = array(
             'name' => $this->input->post('name'),
@@ -34,16 +34,16 @@ class Weekly extends CI_Controller {
             'updated' => $date
         );
 
-        $insert = $this->MWeekly->add($data);
+        $insert = $this->MYear->add($data);
         echo json_encode(array("status" => true));
     }
 
     public function get_by_id_json($id) {
-        $data = $this->MWeekly->get_by_id($id);
+        $data = $this->MYear->get_by_id($id);
         echo json_encode($data);
     }
 
-    public function update_weekly() {
+    public function update_year() {
         $date = date('Y/m/d H:i:s');
 
         $data = array(
@@ -52,7 +52,7 @@ class Weekly extends CI_Controller {
             'updated' => $date
         );
 
-        $this->MWeekly->update(array('x_weekly_id' => $this->input->post('id')), $data);
+        $this->MYear->update(array('c_year_id' => $this->input->post('id')), $data);
         echo json_encode(array('status' => TRUE));
     }
 
